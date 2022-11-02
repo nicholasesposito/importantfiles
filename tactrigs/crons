@@ -1,0 +1,14 @@
+##---global
+47 2,8,14,20 * * * jtyp=gfs cyc=`date --date="-2 hours" +\%H` PDY=`date +\%Y\%m\%d` desc=GlobalTAC bash -l /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jglobal_dump.wc2.pbs > /dev/null 2>&1
+50 5,11,17,23 * * * jtyp=gdas cyc=`date --date="-5 hours" +\%H` PDY=`date +\%Y\%m\%d` desc=GlobalTAC bash -l /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jglobal_dump.wc2.pbs > /dev/null 2>&1
+
+##---rap
+26 1-11 * * * jtyp=rap cyc=`date +\%H` PDY=`date +\%Y\%m\%d` desc=RapTAC bash -l /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/triggers/jrap_dump.wc2.pbs > /dev/null 2>&1
+26 13-23 * * * jtyp=rap cyc=`date +\%H` PDY=`date +\%Y\%m\%d` desc=RapTAC bash -l /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/triggers/jrap_dump.wc2.pbs > /dev/null 2>&1
+58 0,12 * * * jtyp=rap cyc=`date +\%H` PDY=`date +\%Y\%m\%d` desc=RapTAC bash -l /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/triggers/jrap_dump.wc2.pbs > /dev/null 2>&1
+
+
+##### Old stuff
+#30 * * * *  /bin/bash -l /lfs/h2/emc/obsproc/noscrub/Nicholas.Esposito/cron_project/jdump_monitor.wc2.sge > /u/Nicholas.Esposito/trial 2>&1
+
+#30 * * * * jtyp=dump_monitor cyc=12 PDY=20210824 desc=wc2 bash -l /u/Nicholas.Esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/Nicholas.Esposito/cron_project/jdump_monitor.wc2.pbs > /u/Nicholas.Esposito/trial 2>&1
