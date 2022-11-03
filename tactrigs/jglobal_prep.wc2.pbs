@@ -91,16 +91,19 @@ export SENDECF=NO   # developer
 export SENDSDM=NO   # developer
 export SENDDBN=NO   # developer
 
-export DATAROOT=/lfs/h2/emc/stmp/$USER
+#export DATAROOT=/lfs/h2/emc/stmp/$USER  #ORIG
+export DATAROOT=/lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TACcom
 export jlogfile=/lfs/h2/emc/stmp/$USER/${JTYP}.$PDY.jlogfile
 
 #export HOMEgfs=$PACKAGEROOT/gfs.v16.2.0 #no longer has /fix/prepobs_errtable.global but more /fix dirs
 export HOMEgfs=$COMROOT/gfs/v16.2/       #NCO approved shared location for common GFS files
 
-export COMIN_ROOT=/lfs/h2/emc/stmp/$USER/CRON/${DESC}/com
+#export COMIN_ROOT=/lfs/h2/emc/stmp/$USER/CRON/${DESC}/com   #ORIG
+export COMIN_ROOT=${DATAROOT}/CRON/${DESC}/com
 #export COMINgdas=/lfs/h1/ops/canned/com/gfs/v16.2/${JTYP}.${PDY}/${cyc}/${COMPONENT}
 #export COMINgfs=/lfs/h1/ops/canned/com/gfs/v16.2/${JTYP}.${PDY}/${cyc}/${COMPONENT}
-export COMOUT_ROOT=/lfs/h2/emc/stmp/$USER/CRON/${DESC}/com
+export COMOUT_ROOT=/lfs/h2/emc/stmp/$USER/CRON/${DESC}/com      #ORIG
+export COMOUT_ROOT=${DATAROOT}/CRON/${DESC}/com
 
 export DEBUG_LEVEL=3
 export KEEPDATA=YES
@@ -109,7 +112,7 @@ export LOUD=ON
 $HOMEobsproc/jobs/JOBSPROC_GLOBAL_PREP
 err=$?
 
-exit
+#exit
 
 # When run from cron, the stdout is written to /u/$USER
 # mv to stmp
@@ -124,9 +127,8 @@ fi
 # Kick off prep_post job
 if [ $err -eq 0 ]; then
   echo "submit jglobal_prep_post:"
-  jtyp=$JTYP PDY=$PDY desc=$DESC bash -l /u/$USER/bin/cycqsub \
-  ${userROOT}/Trigs.KEEP/jglobal_prep_post.wc2.pbs 
-  #/lfs/h2/emc/obsproc/noscrub/iliana.genkova/Trigs.KEEP/jglobal_prep_post.wc2.pbs
+  jtyp=$JTYP cyc=$cyc PDY=$PDY desc=$DESC bash -l /u/$USER/bin/cycqsub \
+  /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jglobal_prep_post.wc2.pbs
 fi
 
 exit

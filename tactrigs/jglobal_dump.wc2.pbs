@@ -93,7 +93,9 @@ export TANK=$DCOMROOT     #OPERATIONAL
 
 #export EPRM=${userROOT}/sample_sdmedit.txt
 
-export DATAROOT=/lfs/h2/emc/stmp/$USER 
+#export DATAROOT=/lfs/h2/emc/stmp/$USER       #ORIG
+export DATAROOT=/lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TACcom
+
 export jlogfile=/lfs/h2/emc/stmp/$USER/${JTYP}.$PDY.jlogfile
 
 export COMOUT_ROOT=${DATAROOT}/CRON/${DESC}/com
@@ -107,7 +109,7 @@ export KEEPDATA=YES
 $HOMEobsproc/jobs/JOBSPROC_GLOBAL_DUMP
 err=$?
 
-exit
+#exit
 
 # When run from cron, the stdout is written to /u/$USER
 # mv to stmp
@@ -122,17 +124,15 @@ fi
 # Kick off dump_post job
 if [ $err -eq 0 ]; then
   echo "submit jglobal_dump_post"
-  jtyp=$JTYP PDY=$PDY desc=$DESC bash -l /u/$USER/bin/cycqsub \
-  ${userROOT}/Trigs.KEEP/jglobal_dump_post.wc2.pbs 
-  #/lfs/h2/emc/obsproc/noscrub/iliana.genkova/Trigs.KEEP/jglobal_dump_post.wc2.pbs
+  jtyp=$JTYP cyc=$cyc PDY=$PDY desc=$DESC bash -l /u/$USER/bin/cycqsub \
+  /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jglobal_dump_post.wc2.pbs
 fi
 
 # Kick off prep job
 if [ $err -eq 0 ]; then
   echo "submit jglobal_prep"
-  jtyp=$JTYP PDY=$PDY desc=$DESC bash -l /u/$USER/bin/cycqsub \
-  ${userROOT}/Trigs.KEEP/jglobal_prep.wc2.pbs
-  #/lfs/h2/emc/obsproc/noscrub/iliana.genkova/Trigs.KEEP/jglobal_prep.wc2.pbs
+  jtyp=$JTYP cyc=$cyc PDY=$PDY desc=$DESC bash -l /u/$USER/bin/cycqsub \
+  /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jglobal_prep.wc2.pbs
 fi
 
 exit

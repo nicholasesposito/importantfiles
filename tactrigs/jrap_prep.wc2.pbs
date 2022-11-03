@@ -89,15 +89,18 @@ export SENDSDM=NO  # developer
 #export SENDDBN=YES; export DBNROOT="echo test " # developer
 
 
-export DATAROOT=/lfs/h2/emc/stmp/$USER
+#export DATAROOT=/lfs/h2/emc/stmp/$USER   #ORIG
+export DATAROOT=/lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TACcom
 export jlogfile=/lfs/h2/emc/stmp/$USER/${JTYP}.${PDY}.jlogfile
 
-export COMIN_ROOT=/lfs/h2/emc/stmp/$USER/CRON/${DESC}/com
+#export COMIN_ROOT=/lfs/h2/emc/stmp/$USER/CRON/${DESC}/com #ORIG
+export COMIN_ROOT=${DATAROOT}/CRON/${DESC}/com
 #export COMINgdas=/lfs/h1/ops/canned/com/gfs/${gfs_ver}/gdas.${PDY}/${cyc}/atmos
 #export COMINgfs=/lfs/h1/ops/canned/com/gfs/${gfs_ver}/gfs.${PDY}/${cyc}/atmos
 #export GETGES_COM=/lfs/h1/ops/canned/com/gfs/${gfs_ver}/
 #export GESROOT=/lfs/h1/ops/canned/com/gfs/${gfs_ver}/
-export COMOUT_ROOT=/lfs/h2/emc/stmp/$USER/CRON/${DESC}/com/
+#export COMOUT_ROOT=/lfs/h2/emc/stmp/$USER/CRON/${DESC}/com/ #ORIG
+export COMOUT_ROOT=${DATAROOT}/CRON/${DESC}/com 
 
 export KEEPDATA=YES
 export DEBUG_LEVEL=3
@@ -111,7 +114,7 @@ $HOMEobsproc/jobs/JOBSPROC_RAP_PREP
 err=$?
 
 
-exit
+#exit
 
 # When run from cron, the stdout is written to /u/$USER
 # mv to stmp
@@ -126,8 +129,8 @@ fi
 # Kick off prep_post job
 if [ $err -eq 0 ]; then
   echo "submit jrap_prep_post:"
-  jtyp=$JTYP PDY=$PDY desc=$DESC bash -l /u/$USER/bin/cycqsub \
-  /lfs/h2/emc/obsproc/noscrub/iliana.genkova/Trigs.KEEP/jrap_prep_post.wc2.pbs
+  jtyp=$JTYP cyc=$cyc PDY=$PDY desc=$DESC bash -l /u/$USER/bin/cycqsub \
+  /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jrap_prep_post.wc2.pbs
 fi
 
 exit

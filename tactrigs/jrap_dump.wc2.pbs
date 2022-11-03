@@ -98,7 +98,8 @@ export SENDDBN=NO   # developer
 export DCOMROOT=/lfs/h1/ops/prod/dcom
 export TANK=$DCOMROOT
 
-export DATAROOT=/lfs/h2/emc/stmp/$USER
+#export DATAROOT=/lfs/h2/emc/stmp/$USER      #USER
+export DATAROOT=/lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TACcom
 export COMIN_ROOT=$DCOMROOT
 export jlogfile=/lfs/h2/emc/stmp/$USER/${JTYP}.$PDY.jlogfile
 
@@ -112,7 +113,7 @@ export DEBUG_LEVEL=3
 $HOMEobsproc/jobs/JOBSPROC_RAP_DUMP
 err=$?
 
-exit
+#exit
 
 # When run from cron, the stdout is written to /u/$USER
 # mv to stmp
@@ -128,15 +129,15 @@ fi
 # Kick off dump_post job
 if [ $err -eq 0 ]; then
   echo "submit jrap_dump_post"
-  jtyp=$JTYP PDY=$PDY desc=$DESC bash -l /u/$USER/bin/cycqsub \
-  ${userROOT}/Trigs.KEEP/jrap_dump_post.wc2.pbs
+  jtyp=$JTYP cyc=$cyc PDY=$PDY desc=$DESC bash -l /u/$USER/bin/cycqsub \
+  /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jrap_dump_post.wc2.pbs
 fi
 
 # Kick off prep job
 if [ $err -eq 0 ]; then
   echo "submit jrap_prep"
-  jtyp=$JTYP PDY=$PDY desc=$DESC bash -l /u/$USER/bin/cycqsub \
-  ${userROOT}/Trigs.KEEP/jrap_prep.wc2.pbs
+  jtyp=$JTYP cyc=$cyc PDY=$PDY desc=$DESC bash -l /u/$USER/bin/cycqsub \
+  /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jrap_prep.wc2.pbs
 fi
 
 exit
