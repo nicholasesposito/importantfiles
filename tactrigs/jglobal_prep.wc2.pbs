@@ -34,7 +34,7 @@ export obsNET=obsproc
 export obsproc_ver=v1.1
 export obsproc_ver_pckg=v1.1.0
 export prepobs_ver=1.1.0
-PACKAGEROOTpara=/lfs/h1/ops/para/packages
+#PACKAGEROOTpara=/lfs/h1/ops/para/packages
 PACKAGEROOT=/lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/
 
 #export HOMEobsproc=${PACKAGEROOTpara}/obsproc.${obsproc_ver_pckg}   # NCO para
@@ -54,6 +54,7 @@ else
  exit 7
 fi
 
+
 #Load the modules
 module load grib_util/${grib_util_ver}
 module load netcdf/${netcdf_ver}
@@ -64,16 +65,17 @@ module load cray-pals/${cray_pals_ver}
 module load cfp/${cfp_ver}
 
 #use para installation
-module use /apps/ops/para/nco/modulefiles/compiler/intel/19.1.3.304
+#module use /apps/ops/para/nco/modulefiles/compiler/intel/19.1.3.304
 #use local installation
 #module use ${userROOT}/install/bufr-dump/modulefiles                                   # SM local
 #module use  ${userROOT}/GIT/bufr-dump/install/modulefiles # IG local
-module load bufr_dump/${bufr_dump_ver}
+#module load bufr_dump/${bufr_dump_ver}
 
 # use local prepobs installation
 #module use ${userROOT}/install/prepobs/modulefiles            # SM local
-module use ${userROOT}/TAC2/prepobs.v${prepobs_ver}/prepobs/modulefiles
-module load prepobs/${prepobs_ver}
+export prepobs_ver=1.1.0
+module use ${userROOT}/TAC2/prepobs.v${prepobs_ver}/prepobs/install/modulefiles
+module load prepobs/${prepobs_ver} 
 
 #Check if they exist
 if [[ $(echo $LOADEDMODULES | egrep -c "(^|:)grib_util/") -eq 0 ]]; then echo "grib_util is not loaded!"; fi
@@ -95,11 +97,14 @@ export SENDDBN=NO   # developer
 export DATAROOT=/lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TACcom
 export jlogfile=/lfs/h2/emc/stmp/$USER/${JTYP}.$PDY.jlogfile
 
+export COMIN_ROOT=${DATAROOT}/CRON/${DESC}/com
+#export COMROOT=${COMIN_ROOT}
 #export HOMEgfs=$PACKAGEROOT/gfs.v16.2.0 #no longer has /fix/prepobs_errtable.global but more /fix dirs
-export HOMEgfs=$COMROOT/gfs/v16.2/       #NCO approved shared location for common GFS files
+export HOMEgfs=$COMROOT/gfs/v16.3/       #NCO approved shared location for common GFS files
 
 #export COMIN_ROOT=/lfs/h2/emc/stmp/$USER/CRON/${DESC}/com   #ORIG
-export COMIN_ROOT=${DATAROOT}/CRON/${DESC}/com
+#export COMIN_ROOT=${DATAROOT}/CRON/${DESC}/com
+#export COMROOT=${COMIN_ROOT}
 #export COMINgdas=/lfs/h1/ops/canned/com/gfs/v16.2/${JTYP}.${PDY}/${cyc}/${COMPONENT}
 #export COMINgfs=/lfs/h1/ops/canned/com/gfs/v16.2/${JTYP}.${PDY}/${cyc}/${COMPONENT}
 export COMOUT_ROOT=/lfs/h2/emc/stmp/$USER/CRON/${DESC}/com      #ORIG

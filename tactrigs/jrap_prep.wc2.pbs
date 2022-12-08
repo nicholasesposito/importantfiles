@@ -58,6 +58,8 @@ else
   exit 7
 fi
 
+export prepobs_ver=1.1.0
+
 #Load the modules
 module load grib_util/${grib_util_ver}
 module load netcdf/${netcdf_ver}
@@ -65,7 +67,7 @@ module load bufr_dump/${bufr_dump_ver}
 # use local prepobs installation
 #module use ${userROOT}/install/prepobs/modulefiles
 module use /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/prepobs.v${prepobs_ver}/prepobs/modulefiles 
-module load prepobs/${prepobs_ver}
+module load prepobs #/${prepobs_ver}
 module load intel/${intel_ver}
 module load craype/${craype_ver}
 module load cray-mpich/${cray_mpich_ver}
