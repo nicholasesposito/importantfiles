@@ -1,0 +1,36 @@
+
+export PDY=20221025
+
+ jtyp=rap_p cyc=00 PDY=${PDY}  desc=rapp /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jrap_dump.wc2.pbs 
+ jtyp=rap_p cyc=06 PDY=${PDY}  desc=rapp /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jrap_dump.wc2.pbs 
+ jtyp=rap_p cyc=12 PDY=${PDY}  desc=rapp /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jrap_dump.wc2.pbs 
+ jtyp=rap_p cyc=18 PDY=${PDY}  desc=rapp /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jrap_dump.wc2.pbs 
+ jtyp=rap_p cyc=00 PDY=${PDY}  desc=rapp /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jrap_dump_post.wc2.pbs 
+ jtyp=rap_p cyc=06 PDY=${PDY}  desc=rapp /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jrap_dump_post.wc2.pbs 
+ jtyp=rap_p cyc=12 PDY=${PDY}  desc=rapp /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jrap_dump_post.wc2.pbs 
+ jtyp=rap_p cyc=18 PDY=${PDY}  desc=rapp /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jrap_dump_post.wc2.pbs 
+ jtyp=rap_p cyc=00 PDY=${PDY}  desc=rapp /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jrap_prep.wc2.pbs 
+ jtyp=rap_p cyc=06 PDY=${PDY}  desc=rapp /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jrap_prep.wc2.pbs 
+ jtyp=rap_p cyc=12 PDY=${PDY}  desc=rapp /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jrap_prep.wc2.pbs 
+ jtyp=rap_p cyc=18 PDY=${PDY}  desc=rapp /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jrap_prep.wc2.pbs 
+ jtyp=rap_p cyc=00 PDY=${PDY}  desc=rapp /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jrap_prep_post.wc2.pbs
+ jtyp=rap_p cyc=06 PDY=${PDY}  desc=rapp /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jrap_prep_post.wc2.pbs
+ jtyp=rap_p cyc=12 PDY=${PDY}  desc=rapp /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jrap_prep_post.wc2.pbs
+ jtyp=rap_p cyc=18 PDY=${PDY}  desc=rapp /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jrap_prep_post.wc2.pbs
+
+ jtyp=gfs cyc=00 PDY=${PDY} desc=global bash -l /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jglobal_dump.wc2.pbs 
+ jtyp=gfs cyc=06 PDY=${PDY} desc=global bash -l /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jglobal_dump.wc2.pbs 
+ jtyp=gfs cyc=12 PDY=${PDY} desc=global bash -l /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jglobal_dump.wc2.pbs 
+ jtyp=gfs cyc=18 PDY=${PDY} desc=global bash -l /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jglobal_dump.wc2.pbs 
+ jtyp=gfs cyc=00 PDY=${PDY} desc=global bash -l /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jglobal_dump_post.wc2.pbs 
+ jtyp=gfs cyc=06 PDY=${PDY} desc=global bash -l /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jglobal_dump_post.wc2.pbs 
+ jtyp=gfs cyc=12 PDY=${PDY} desc=global bash -l /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jglobal_dump_post.wc2.pbs 
+ jtyp=gfs cyc=18 PDY=${PDY} desc=global bash -l /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jglobal_dump_post.wc2.pbs 
+ jtyp=gfs cyc=00 PDY=${PDY} desc=global bash -l /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jglobal_prep.wc2.pbs 
+ jtyp=gfs cyc=06 PDY=${PDY} desc=global bash -l /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jglobal_prep.wc2.pbs 
+ jtyp=gfs cyc=12 PDY=${PDY} desc=global bash -l /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jglobal_prep.wc2.pbs 
+ jtyp=gfs cyc=18 PDY=${PDY} desc=global bash -l /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jglobal_prep.wc2.pbs 
+ jtyp=gfs cyc=00 PDY=${PDY} desc=global bash -l /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jglobal_prep_post.wc2.pbs
+ jtyp=gfs cyc=06 PDY=${PDY} desc=global bash -l /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jglobal_prep_post.wc2.pbs
+ jtyp=gfs cyc=12 PDY=${PDY} desc=global bash -l /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jglobal_prep_post.wc2.pbs
+ jtyp=gfs cyc=18 PDY=${PDY} desc=global bash -l /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC2/triggers/jglobal_prep_post.wc2.pbs

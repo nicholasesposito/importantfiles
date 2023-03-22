@@ -1,0 +1,22 @@
+#!/bin/bash --login
+#
+##---global
+#47 2,8,14,20 * * * jtyp=gfs cyc=`date --date="-2 hours" +\%H` PDY=`date +\%Y\%m\%d` desc=GlobalTAC bash -l /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC/triggers/jglobal_dump.wc2.pbs > /dev/null 2>&1
+#50 5,11,17,23 * * * jtyp=gdas cyc=`date --date="-5 hours" +\%H` PDY=`date +\%Y\%m\%d` desc=GlobalTAC bash -l /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC/triggers/jglobal_dump.wc2.pbs > /dev/null 2>&1
+
+##---rap
+#26 1-11 * * * jtyp=rap cyc=`date +\%H` PDY=`date +\%Y\%m\%d` desc=RapTAC bash -l /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC/triggers/jrap_dump.wc2.pbs > /dev/null 2>&1
+#26 13-23 * * * jtyp=rap cyc=`date +\%H` PDY=`date +\%Y\%m\%d` desc=RapTAC bash -l /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC/triggers/jrap_dump.wc2.pbs > /dev/null 2>&1
+#58 0,12 * * * jtyp=rap cyc=`date +\%H` PDY=`date +\%Y\%m\%d` desc=RapTAC bash -l /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC/triggers/jrap_dump.wc2.pbs > /dev/null 2>&1
+
+################################
+##--rap and global test whenever you want #MAKE SURE BOTH ARE COMMENTED WHEN DONE WITH THEM
+#34 22 * * * jtyp=rap cyc=`date +\%H` PDY=`date +\%Y\%m\%d` desc=RapTAC bash -l /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC/triggers/jrap_dump.wc2.pbs > /dev/null 2>&1
+#01 16 * * * jtyp=gfs cyc=`date --date="-10 hours" +\%H` PDY=`date +\%Y\%m\%d` desc=GlobalTAC bash -l /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC/triggers/jglobal_dump.wc2.pbs > /dev/null 2>&1
+#38 16 * * * jtyp=gdas cyc=`date --date="-16 hours" +\%H` PDY=`date +\%Y\%m\%d` desc=GlobalTAC bash -l /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC/triggers/jglobal_dump.wc2.pbs > /dev/null 2>&1
+################################
+##prep
+#09 15 * * * jtyp=gfs cyc=`date --date="-15 hours" +\%H` PDY=`date +\%Y\%m\%d` desc=GlobalTAC bash -l /u/nicholas.esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC/triggers/jglobal_prep.wc2.pbs.NEW > /dev/null 2>&1
+##### Old stuff
+#30 * * * *  /bin/bash -l /lfs/h2/emc/obsproc/noscrub/Nicholas.Esposito/cron_project/jdump_monitor.wc2.sge > /u/Nicholas.Esposito/trial 2>&1
+#30 * * * * jtyp=dump_monitor cyc=12 PDY=20210824 desc=wc2 bash -l /u/Nicholas.Esposito/bin/cycqsub /lfs/h2/emc/obsproc/noscrub/Nicholas.Esposito/cron_project/jdump_monitor.wc2.pbs > /u/Nicholas.Esposito/trial 2>&1
