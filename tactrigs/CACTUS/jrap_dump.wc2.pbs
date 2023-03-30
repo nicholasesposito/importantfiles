@@ -5,7 +5,7 @@
 #PBS -q dev
 #PBS -A OBSPROC-DEV
 #PBS -l walltime=00:30:00
-#PBS -l place=vscatter,select=1:ncpus=8:mem=5gb
+#PBS -l place=vscatter,select=1:ncpus=8:mem=7gb
 #PBS -l debug=true
 #####################################################################
 # Submit notes:
@@ -39,8 +39,7 @@ export PDY=%PDY%
 userROOT=/lfs/h2/emc/obsproc/noscrub/$USER
 
 export obsproc_ver=v1.1
-export obsproc_ver_pckg=v1.1.0
-export bufr_dump_ver=1.1.0
+export obsproc_ver_pckg=v1.1.1
 export obsNET=obsproc
 PACKAGEROOTpara=/lfs/h1/ops/para/packages
 PACKAGEROOT=/lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC/
@@ -61,7 +60,8 @@ module load grib_util/${grib_util_ver}
 module load netcdf/${netcdf_ver}
 # use para installation
 
-export bufr_dump_ver=1.1.0
+module unload bufr_dump
+export bufr_dump_ver=1.1.1
 module use ${PACKAGEROOT}/bufr-dump.v${bufr_dump_ver}/bufr-dump/install/modulefiles
 module load bufr_dump/${bufr_dump_ver}
 
@@ -105,7 +105,6 @@ export DEBUG_LEVEL=3
 $HOMEobsproc/jobs/JOBSPROC_RAP_DUMP
 err=$?
 
-#exit
 
 # When run from cron, the stdout is written to /u/$USER
 # mv to stmp
@@ -121,14 +120,14 @@ fi
 # Kick off dump_post job
 if [ $err -eq 0 ]; then
   echo "submit jrap_dump_post"
-  jtyp=$JTYP cyc=$cyc PDY=$PDY desc=$DESC bash -l /u/$USER/bin/cycqsub \
+  jtyp=$JTYP cyc=$cyc PDY=$PDY desc=$DESC bash  /u/$USER/bin/cycqsub \
   /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC/triggers/jrap_dump_post.wc2.pbs
 fi
 
 # Kick off prep job
 if [ $err -eq 0 ]; then
   echo "submit jrap_prep"
-  jtyp=$JTYP cyc=$cyc PDY=$PDY desc=$DESC bash -l /u/$USER/bin/cycqsub \
+  jtyp=$JTYP cyc=$cyc PDY=$PDY desc=$DESC bash  /u/$USER/bin/cycqsub \
   /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC/triggers/jrap_prep.wc2.pbs
 fi
 

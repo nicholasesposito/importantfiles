@@ -115,14 +115,14 @@ fi
 # Kick off dump_post job
 if [ $err -eq 0 ]; then
   echo "submit jglobal_dump_post"
-  jtyp=$JTYP cyc=$cyc PDY=$PDY desc=$DESC bash -l /u/$USER/bin/cycqsub \
+  jtyp=$JTYP cyc=$cyc PDY=$PDY desc=$DESC bash  /u/$USER/bin/cycqsub \
   /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC/triggers/jglobal_dump_post.wc2.pbs
 fi
 
 # Kick off prep job
 if [ $err -eq 0 ]; then
   echo "submit jglobal_prep"
-  jtyp=$JTYP cyc=$cyc PDY=$PDY desc=$DESC bash -l /u/$USER/bin/cycqsub \
+  jtyp=$JTYP cyc=$cyc PDY=$PDY desc=$DESC bash  /u/$USER/bin/cycqsub \
   /lfs/h2/emc/obsproc/noscrub/nicholas.esposito/TAC/triggers/jglobal_prep.wc2.pbs
 fi
 

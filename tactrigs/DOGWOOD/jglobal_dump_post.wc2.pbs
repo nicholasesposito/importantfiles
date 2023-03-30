@@ -125,7 +125,7 @@ exit
 # Kick off prep job
 if [ $err -eq 0 ]; then
   echo "submit jrap_prep"
-  jtyp=$JTYP PDY=$PDY desc=$DESC bash -l /u/$USER/bin/cycqsub \
+  jtyp=$JTYP PDY=$PDY desc=$DESC bash  /u/$USER/bin/cycqsub \
   ${userROOT}/Trigs.KEEP/jglobal_prep.wc2.pbs
 fi
 
