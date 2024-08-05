@@ -1,0 +1,468 @@
+# (C) Copyright 2020 NOAA/NWS/NCEP/EMC
+# #
+# # This software is licensed under the terms of the Apache Licence Version 2.0
+# # which can be obtained at http://www.apache.org/licenses/LICENSE-2.0.
+#
+observations:
+  - obs space:
+      name: bufr
+
+      obsdatain: "./testinput/gdas.t12z.adpsfc.nc000001.tm00.bufr_d"
+
+      exports:
+        variables:
+          timestamp:
+            datetime:
+              year: "NC000001/YEAR"
+              month: "NC000001/MNTH"
+              day: "NC000001/DAYS"
+              hour: "NC000001/HOUR"
+              minute: "NC000001/MINU"
+          durationOfTimeRelatingToDepthOfFreshSnow:
+            query: "NC000001/SNWSQ1/.DTHDOFS"
+          durationOfTimeRelatingToMinimumTemperature:
+            query: "NC000001/TMPSQ3/.DTHMITM"
+          durationOfTimeRelatingToMaximumTemperature:
+            query: "NC000001/TMPSQ3/.DTHMXTM"
+          durationOfTimeRelatingToTotalPrecipitation:
+            query: "NC000001/PCPSQ3/.DTHTOPC"
+          PressureChange24Hour:
+            query: "NC000001/PRSSQ3/24PC"
+          PressureChange3Hour:
+            query: "NC000001/3HPC"
+          characteristicOfPressureTendency:
+            query: "NC000001/CHPT"
+          cloudAmountObserved:
+            query: "NC000001/CLDSQ1/CLAM"
+          latitude:
+            query: "NC000001/CLAT"
+          longitude:
+            query: "NC000001/CLON"
+          cloudType:
+            query: "NC000001/CLDSQ1/CLTP"
+          freshSnowDepth:
+            query: "NC000001/SNWSQ1/DOFS"
+          swellWavesDirection:
+            query: "NC000001/WAVSQ3/DOSW"
+          heightAboveSurfaceOfBaseOfLowestCloud:
+            query: "NC000001/HBLCS"
+          heightOfBaseOfCloud:
+            query: "NC000001/CLDSQ1/HOCB"
+          heightOfTopOfCloud:
+            query: "NC000001/CLDSQ1/CLDSQ2/HOCT"
+          heightOfSwellWaves:
+            query: "NC000001/WAVSQ3/HOSW"
+          horizontalVisibility:
+            query: "NC000001/HOVI"
+          heightOfWaves:
+            query: "NC000001/WAVSQ1/HOWV"
+          heightOfWindWaves:
+            query: "NC000001/WAVSQ2/HOWW"
+          minimumTemperatureAtHeightAndOverPeriodSpecified:
+            query: "NC000001/TMPSQ3/MITM"
+          maximumWindGustSpeed:
+            query: "NC000001/WNDSQ2/MXGS"
+          maximumTemperatureAtHeightAndOverPeriodSpecified:
+            query: "NC000001/TMPSQ3/MXTM"
+          pressureReducedToMeanSeaLevel:
+            query: "NC000001/PMSL"
+          periodOfSwellWaves:
+            query: "NC000001/WAVSQ3/POSW"
+          periodOfWaves:
+            query: "NC000001/WAVSQ1/POWV"
+          periodOfWindWaves:
+            query: "NC000001/WAVSQ2/POWW"
+          pressure:
+            query: "NC000001/PRES"
+          presentWeather:
+            query: "NC000001/PPWSQ1/PRWE"
+          pastWeather1:
+            query: "NC000001/PPWSQ1/PSW1"
+          pastWeather2:
+            query: "NC000001/PPWSQ1/PSW2"
+          airTemperatureQM:
+            query: "NC000001/QMAT"
+          dewpointTemperatureQM:
+            query: "NC000001/QMDD"
+          pressureQM:
+            query: "NC000001/QMPR"
+          dataReceiptTimeHour:
+            query: "NC000001/RCHR"
+          dataReceiptTimeMinute:
+            query: "NC000001/RCMI"
+          dataReceiptTimeSignificance:
+            query: "NC000001/RCTS"
+          stationIdentification:
+            query: "NC000001/RPID"
+          stationElevation:
+            query: "NC000001/SELV"
+          waterTemperature:
+            query: "NC000001/SST1"
+          airTemperature:
+            query: "NC000001/TMDB"
+          dewpointTemperature:
+            query: "NC000001/TMDP"
+          cloudCoverTotal:
+            query: "NC000001/TOCC"
+            transforms:
+              - scale: 0.01
+          totalPrecipitation:
+            query: "NC000001/PCPSQ3/TOPC"
+          totalSnowDepth:
+            query: "NC000001/SNWSQ1/TOSD"
+          totalPrecipitation1Hour:
+            query: "NC000001/PCPSQ2/TP01"
+          totalPrecipitation3Hours:
+            query: "NC000001/PCPSQ2/TP03"
+          totalPrecipitation6Hours:
+            query: "NC000001/TP06"
+          totalPrecipitation12Hours:
+            query: "NC000001/PCPSQ2/TP12"
+          totalPrecipitation24Hours:
+            query: "NC000001/PCPSQ2/TP24"
+          verticalSignificanceSurfaceObservations:
+            query: "NC000001/CLDSQ1/VSSO"
+          verticalVisibility:
+            query: "NC000001/RPSEC3/VTVI"
+          windDirection:
+            query: "NC000001/WDIR"
+          windSpeed:
+            query: "NC000001/WSPD"
+
+
+    ioda:
+      backend: netcdf
+      obsdataout: "testrun/gdas.t12z.adpsfc_bufr_nc000001.tm00.nc"
+
+      variables:
+        - name: "MetaData/dateTime"
+          source: variables/timestamp
+          longName: "Datetime"
+          units: "seconds since 1970-01-01T00:00:00Z"
+
+        - name: "ObsValue/durationOfTimeRelatingToDepthOfFreshSnow"
+          coordinates: "longitude latitude"
+          source: variables/durationOfTimeRelatingToDepthOfFreshSnow
+          longName: "Duration Of Time Relating To Depth Of Fresh Snow"
+          units: "Hour"
+
+        - name: "ObsValue/durationOfTimeRelatingToMinimumTemperature"
+          coordinates: "longitude latitude"
+          source: variables/durationOfTimeRelatingToMinimumTemperature
+          longName: "Duration Of Time Relating To Minimum Temperature"
+          units: "Hour"
+
+        - name: "ObsValue/durationOfTimeRelatingToMaximumTemperature"
+          coordinates: "longitude latitude"
+          source: variables/durationOfTimeRelatingToMaximumTemperature
+          longName: "Duration Of Time Relating To Maximum Temperature"
+          units: "Hour"
+
+        - name: "ObsValue/durationOfTimeRelatingToTotalPrecipitation"
+          coordinates: "longitude latitude"
+          source: variables/durationOfTimeRelatingToTotalPrecipitation
+          longName: "Duration Of Time Relating To Total Precipitation"
+          units: "Hour"
+
+        - name: "ObsValue/PressureChange24Hour"
+          coordinates: "longitude latitude"
+          source: variables/PressureChange24Hour
+          longName: "24 Hour Pressure Change"
+          units: "Pa"
+
+        - name: "ObsValue/PressureChange3Hour"
+          coordinates: "longitude latitude"
+          source: variables/PressureChange3Hour
+          longName: "3 Hour Pressure Change"
+          units: "Pa"
+
+        - name: "ObsValue/characteristicOfPressureTendency"
+          coordinates: "longitude latitude"
+          source: variables/characteristicOfPressureTendency
+          longName: "Characteristic Of Pressure Tendency"
+
+
+        - name: "ObsValue/cloudAmountObserved"
+          coordinates: "longitude latitude"
+          source: variables/cloudAmountObserved
+          longName: "Cloud Amount Observed"
+
+        - name: "MetaData/latitude"
+          coordinates: "longitude latitude"
+          source: variables/latitude
+          longName: "Latitude"
+          units: "degree_north"
+          range: [-90, 90]
+
+        - name: "MetaData/longitude"
+          coordinates: "longitude latitude"
+          source: variables/longitude
+          longName: "Longitude"
+          units: "degree_east"
+          range: [-180, 180]
+
+        - name: "ObsValue/cloudType"
+          coordinates: "longitude latitude"
+          source: variables/cloudType
+          longName: "Cloud Type"
+
+
+        - name: "ObsValue/freshSnowDepth"
+          coordinates: "longitude latitude"
+          source: variables/freshSnowDepth
+          longName: "Fresh Snow Depth"
+          units: "m"
+
+        - name: "ObsValue/swellWavesDirection"
+          coordinates: "longitude latitude"
+          source: variables/swellWavesDirection
+          longName: "Swell Waves Direction"
+          units: "degree"
+
+        - name: "ObsValue/heightAboveSurfaceOfBaseOfLowestCloud"
+          coordinates: "longitude latitude"
+          source: variables/heightAboveSurfaceOfBaseOfLowestCloud
+          longName: "Height Above Surface of Base of Lowest Cloud"
+          units: "m"
+
+        - name: "ObsValue/heightOfBaseOfCloud"
+          coordinates: "longitude latitude"
+          source: variables/heightOfBaseOfCloud
+          longName: "Cloud Base Altitude"
+          units: "m"
+
+        - name: "ObsValue/heightOfTopOfCloud"
+          coordinates: "longitude latitude"
+          source: variables/heightOfTopOfCloud
+          longName: "Cloud Top Altitude"
+          units: "m"
+
+        - name: "ObsValue/heightOfSwellWaves"
+          coordinates: "longitude latitude"
+          source: variables/heightOfSwellWaves
+          longName: "Height of Swell Waves"
+          units: "m"
+
+        - name: "ObsValue/horizontalVisibility"
+          coordinates: "longitude latitude"
+          source: variables/horizontalVisibility
+          longName: "Horizontal Visibility"
+          units: "m"
+
+        - name: "ObsValue/heightOfWaves"
+          coordinates: "longitude latitude"
+          source: variables/heightOfWaves
+          longName: "Height Of Waves"
+          units: "m"
+
+        - name: "ObsValue/heightOfWindWaves"
+          coordinates: "longitude latitude"
+          source: variables/heightOfWindWaves
+          longName: "Height of Wind Waves"
+          units: "m"
+
+        - name: "ObsValue/minimumTemperatureAtHeightAndOverPeriodSpecified"
+          coordinates: "longitude latitude"
+          source: variables/minimumTemperatureAtHeightAndOverPeriodSpecified
+          longName: "Minimum Temperature At Height and Over Period Specified"
+          units: "K"
+
+        - name: "ObsValue/maximumWindGustSpeed"
+          coordinates: "longitude latitude"
+          source: variables/maximumWindGustSpeed
+          longName: "Maximum Wind Gust Speed"
+          units: "m s-1"
+
+        - name: "ObsValue/maximumTemperatureAtHeightAndOverPeriodSpecified"
+          coordinates: "longitude latitude"
+          source: variables/maximumTemperatureAtHeightAndOverPeriodSpecified
+          longName: "Maximum Temperature At Height and Over Period Specified"
+          units: "K"
+
+        - name: "ObsValue/pressureReducedToMeanSeaLevel"
+          coordinates: "longitude latitude"
+          source: variables/pressureReducedToMeanSeaLevel
+          longName: "Mean Sea-Level Pressure"
+          units: "Pa"
+
+        - name: "ObsValue/periodOfSwellWaves"
+          coordinates: "longitude latitude"
+          source: variables/periodOfSwellWaves
+          longName: "Period of Swell Waves"
+          units: "Second"
+
+        - name: "ObsValue/periodOfWaves"
+          coordinates: "longitude latitude"
+          source: variables/periodOfWaves
+          longName: "Period Of Waves"
+          units: "Second"
+
+        - name: "ObsValue/periodOfWindWaves"
+          coordinates: "longitude latitude"
+          source: variables/periodOfWindWaves
+          longName: "Period Of Wind Waves"
+          units: "Second"
+
+        - name: "ObsValue/pressure"
+          coordinates: "longitude latitude"
+          source: variables/pressure
+          longName: "Pressure"
+          units: "Pa"
+
+        - name: "MetaData/presentWeather"
+          coordinates: "longitude latitude"
+          source: variables/presentWeather
+          longName: "Present weather"
+
+
+        - name: "MetaData/pastWeather1"
+          coordinates: "longitude latitude"
+          source: variables/pastWeather1
+          longName: "Past Weather"
+
+
+        - name: "MetaData/pastWeather2"
+          coordinates: "longitude latitude"
+          source: variables/pastWeather2
+          longName: "Past Weather 2"
+
+
+        - name: "QualityMarker/airTemperature"
+          coordinates: "longitude latitude"
+          source: variables/airTemperatureQM
+          longName: "Quality Indicator for Atmospheric Temperature"
+
+
+        - name: "QualityMarker/dewpointTemperature"
+          coordinates: "longitude latitude"
+          source: variables/dewpointTemperatureQM
+          longName: "Quality Indicator for Dewpoint Temperature"
+
+
+        - name: "QualityMarker/pressure"
+          coordinates: "longitude latitude"
+          source: variables/pressureQM
+          longName: "Quality Indicator for Pressure"
+
+
+        - name: "MetaData/dataReceiptTimeHour"
+          coordinates: "longitude latitude"
+          source: variables/dataReceiptTimeHour
+          longName: "Receipt Time (Hour)"
+          units: "Hour"
+
+        - name: "MetaData/dataReceiptTimeMinute"
+          coordinates: "longitude latitude"
+          source: variables/dataReceiptTimeMinute
+          longName: "Data Receipt Time (Minute)"
+          units: "Minute"
+
+        - name: "MetaData/dataReceiptTimeSignificance"
+          coordinates: "longitude latitude"
+          source: variables/dataReceiptTimeSignificance
+          longName: "Data Receipt Time Significance"
+
+
+        - name: "MetaData/stationIdentification"
+          coordinates: "longitude latitude"
+          source: variables/stationIdentification
+          longName: "Station Identification"
+
+
+        - name: "MetaData/stationElevation"
+          coordinates: "longitude latitude"
+          source: variables/stationElevation
+          longName: "Station Elevation"
+          units: "m"
+
+        - name: "ObsValue/waterTemperature"
+          coordinates: "longitude latitude"
+          source: variables/waterTemperature
+          longName: "Water Temperature"
+          units: "K"
+
+        - name: "ObsValue/airTemperature"
+          coordinates: "longitude latitude"
+          source: variables/airTemperature
+          longName: "Air Temperature"
+          units: "K"
+ 
+        - name: "ObsValue/dewpointTemperature"
+          coordinates: "longitude latitude"
+          source: variables/dewpointTemperature
+          longName: "Dew Point"
+          units: "K"
+
+        - name: "ObsValue/cloudCoverTotal"
+          coordinates: "longitude latitude"
+          source: variables/cloudCoverTotal
+          longName: "Cloud Cover"
+          units: "1"
+          range: [0, 1]
+
+        - name: "ObsValue/totalPrecipitation"
+          coordinates: "longitude latitude"
+          source: variables/totalPrecipitation
+          longName: "total Precipitaton"
+          units: "Kg m-2"
+
+        - name: "ObsValue/totalSnowDepth"
+          coordinates: "longitude latitude"
+          source: variables/totalSnowDepth
+          longName: "Total Snow Depth"
+          units: "m"
+
+        - name: "ObsValue/totalPrecipitation1Hour"
+          coordinates: "longitude latitude"
+          source: variables/totalPrecipitation1Hour
+          longName: "total Precipitation 1 Hour"
+          units: "Kg m-2"
+
+        - name: "ObsValue/totalPrecipitation3Hours"
+          coordinates: "longitude latitude"
+          source: variables/totalPrecipitation3Hours
+          longName: "total Precipitation 3 Hours"
+          units: "Kg m-2"
+
+        - name: "ObsValue/totalPrecipitation6Hours"
+          coordinates: "longitude latitude"
+          source: variables/totalPrecipitation6Hours
+          longName: "total Precipitation 6 Hour"
+          units: "Kg m-2"
+
+        - name: "ObsValue/totalPrecipitation12Hours"
+          coordinates: "longitude latitude"
+          source: variables/totalPrecipitation12Hours
+          longName: "total Precipitation 12 Hours"
+          units: "Kg m-2"
+
+        - name: "ObsValue/totalPrecipitation24Hours"
+          coordinates: "longitude latitude"
+          source: variables/totalPrecipitation24Hours
+          longName: "total Precipitation 24 Hours"
+          units: "Kg m-2"
+
+        - name: "ObsValue/verticalSignificanceSurfaceObservations"
+          coordinates: "longitude latitude"
+          source: variables/verticalSignificanceSurfaceObservations
+          longName: "Vertical Significance of Surface Observations"
+
+
+        - name: "ObsValue/verticalVisibility"
+          coordinates: "longitude latitude"
+          source: variables/verticalVisibility
+          longName: "Vertical Visibility"
+          units: "m"
+
+        - name: "ObsValue/windDirection"
+          coordinates: "longitude latitude"
+          source: variables/windDirection
+          longName: "Wind Direction"
+          units: "degree"
+
+        - name: "ObsValue/windSpeed"
+          coordinates: "longitude latitude"
+          source: variables/windSpeed
+          longName: "Wind Speed"
+          units: "m s-1"
+

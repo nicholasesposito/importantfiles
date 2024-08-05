@@ -1,0 +1,203 @@
+# (C) Copyright 2020 NOAA/NWS/NCEP/EMC
+# #
+# # This software is licensed under the terms of the Apache Licence Version 2.0
+# # which can be obtained at http://www.apache.org/licenses/LICENSE-2.0.
+#
+observations:
+  - obs space:
+      name: bufr
+
+      obsdatain: "testinput/gdas.t12z.aircft.tm00.bufr_d"
+
+      exports:
+        variables:
+          timestamp:
+            datetime:
+              year: "[NC004003/YEAR, NC004006/YEAR, NC004011/YEAR, NC004103/YEAR]"
+              month: "[NC004003/MNTH, NC004006/MNTH, NC004011/MNTH, NC004103/MNTH]"
+              day: "[NC004003/DAYS, NC004006/DAYS, NC004011/DAYS, NC004103/DAYS]"
+              hour: "[NC004003/HOUR, NC004006/HOUR, NC004011/HOUR, NC004103/HOUR]"
+              minute: "[NC004003/MINU, NC004006/MINU, NC004011/MINU, NC004103/MINU]"
+          longitude:
+            query: "[NC004003/CLON, NC004006/CLONH, NC004011/CLONH, NC004103/CLONH]"
+            group_by: longitude
+
+          latitude:
+            query: "[NC004003/CLAT, NC004006/CLATH, NC004011/CLATH, NC004103/CLATH]"
+            group_by: longitude
+
+          aircraftFlightNumber:
+            query: "[NC004003/ACID, NC004006/ACID, NC004103/ACID]"
+            group_by: longitude
+          aircraftIdentifier:
+            query: "[NC004006/ACRN, NC004011/ACRN, NC004103/ACRN]"
+            group_by: longitude
+          flightLevel:
+            query: "[NC004003/FLVL, NC004011/FLVLST, NC004103/ADRBLSEQ/FLVLST]"
+            group_by: longitude
+          height:
+            query: "NC004006/HEIT"
+            group_by: longitude
+          heightOrAltitude:
+            query: "NC004006/HMSL"
+            group_by: longitude
+
+          waterVaporMixingRatio:
+            query: "[NC004006/MIXR, NC004103/ADRBLSEQ/MIXR]"
+            group_by: longitude
+          temperatureObservationPrecision:
+            query: "[NC004003/PCAT, NC004006/PCAT, NC004103/PCAT]"
+            group_by: longitude
+          aircraftFlightPhase:
+            query: "[NC004003/POAF, NC004006/POAF]"
+            group_by: longitude
+
+          pressureAltitudeRelativeToMeanSeaLevel:
+            query: "NC004003/PSAL"
+            group_by: longitude
+
+          airTemperatureQM:
+            query: "[NC004003/QMAT, NC004006/QMAT, NC004011/QMAT, NC004103/QMAT]"
+            group_by: longitude
+          moistureQM:
+            query: "[NC004003/AFMST/QMDD, NC004006/QMDD, NC004103/QMDD]"
+            group_by: longitude
+          windQM:
+            query: "[NC004003/QMWN, NC004006/QMWN, NC004011/QMWN, NC004103/QMWN]"
+            group_by: longitude
+
+          relativeHumidity:
+            query: "NC004003/AFMST/REHU"
+            group_by: longitude
+
+          airTemperature:
+            query: "[NC004003/TMDB, NC004006/TMDB, NC004011/TMDB, NC004103/ADRBLSEQ/TMDB]"
+            group_by: longitude
+
+          windDirection:
+            query: "[NC004003/WDIR, NC004006/WDIR, NC004011/WDIR, NC004103/ADRBLSEQ/WDIR]"
+            group_by: longitude
+          windSpeed:
+            query: "[NC004003/WSPD, NC004006/WSPD, NC004011/WSPD, NC004103/ADRBLSEQ/WSPD]"
+            group_by: longitude
+
+    ioda:
+      backend: netcdf
+      obsdataout: "testrun/aircft_bufr_query_amdar.nc"
+
+      variables:
+        - name: "MetaData/dateTime"
+          source: variables/timestamp
+          longName: "Datetime"
+          units: "seconds since 1970-01-01T00:00:00Z"
+
+        - name: "MetaData/aircraftFlightNumber"
+          coordinates: "longitude latitude"
+          source: variables/aircraftFlightNumber
+          longName: "Aircraft Flight Number"
+
+
+        - name: "MetaData/aircraftIdentifier"
+          coordinates: "longitude latitude"
+          source: variables/aircraftIdentifier
+          longName: "Aircraft Identifier"
+
+
+        - name: "MetaData/latitude"
+          coordinates: "longitude latitude"
+          source: variables/latitude
+          longName: "Latitude"
+          units: "degree_north"
+          range: [-90, 90]
+
+        - name: "MetaData/longitude"
+          coordinates: "longitude latitude"
+          source: variables/longitude
+          longName: "Longitude"
+          units: "degree_east"
+          range: [-180, 180]
+
+        - name: "MetaData/flightLevel"
+          coordinates: "longitude latitude"
+          source: variables/flightLevel
+          longName: "Flight Level"
+          units: "m"
+
+        - name: "MetaData/height"
+          coordinates: "longitude latitude"
+          source: variables/height
+          longName: "height"
+          units: "m"
+
+        - name: "MetaData/heightOrAltitude"
+          coordinates: "longitude latitude"
+          source: variables/heightOrAltitude
+          longName: "Height or Altitude"
+          units: "m"
+
+        - name: "ObsValue/waterVaporMixingRatio"
+          coordinates: "longitude latitude"
+          source: variables/waterVaporMixingRatio
+          longName: "Water Vapor Mixing Ratio"
+          units: "kg kg-1"
+
+        - name: "ObsValue/temperatureObservationPrecision"
+          coordinates: "longitude latitude"
+          source: variables/temperatureObservationPrecision
+          longName: "Temperature Observation Precision"
+          units: "K"
+
+        - name: "MetaData/aircraftFlightPhase"
+          coordinates: "longitude latitude"
+          source: variables/aircraftFlightPhase
+          longName: "Aircraft Flight Phase"
+
+
+        - name: "MetaData/pressureAltitudeRelativeToMeanSeaLevel"
+          coordinates: "longitude latitude"
+          source: variables/pressureAltitudeRelativeToMeanSeaLevel
+          longName: "Pressure Altitude Relative to Mean Sea Level"
+          units: "m"
+
+        - name: "QualityMarker/airTemperature"
+          coordinates: "longitude latitude"
+          source: variables/airTemperatureQM
+          longName: "Quality Indicator for Atmospheric Temperature"
+
+
+        - name: "QualityMarker/moisture"
+          coordinates: "longitude latitude"
+          source: variables/moistureQM
+          longName: "Quality Indicator for Moisture"
+
+
+        - name: "QualityMarker/windEastward"
+          coordinates: "longitude latitude"
+          source: variables/windQM
+          longName: "Quality Indicator for Eastward Wind"
+
+
+        - name: "ObsValue/relativeHumidity"
+          coordinates: "longitude latitude"
+          source: variables/relativeHumidity
+          longName: "Relative Humidity"
+          units: "1"
+
+        - name: "ObsValue/airTemperature"
+          coordinates: "longitude latitude"
+          source: variables/airTemperature
+          longName: "Air Temperature"
+          units: "K"
+
+        - name: "ObsValue/windDirection"
+          coordinates: "longitude latitude"
+          source: variables/windDirection
+          longName: "Wind Direction"
+          units: "degree"
+
+        - name: "ObsValue/windSpeed"
+          coordinates: "longitude latitude"
+          source: variables/windSpeed
+          longName: "Wind Speed"
+          units: "m s-1"
+

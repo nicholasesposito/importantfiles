@@ -1,0 +1,115 @@
+# (C) Copyright 2020 NOAA/NWS/NCEP/EMC
+# #
+# # This software is licensed under the terms of the Apache Licence Version 2.0
+# # which can be obtained at http://www.apache.org/licenses/LICENSE-2.0.
+#
+
+observations:
+  - obs space:
+      name: bufr
+
+      obsdatain: "./testinput/gdas.t12z.adpsfc.bufr_d"
+
+      exports:
+        variables:
+          timestamp:
+            datetime:
+              year: "NC000020/YEAR"
+              month: "NC000020/MNTH"
+              day: "NC000020/DAYS"
+              hour: "NC000020/HOUR"
+              minute: "NC000020/MINU"
+          latitude:
+            query: "NC000020/CLATH"
+          longitude:
+            query: "NC000020/CLONH"
+          dataRestrictedExpiration:
+            query: "NC000020/EXPRSRD"
+          stationElevation:
+            query: "NC000020/HSMSL"
+          dataReceiptTimeHour:
+            query: "NC000020/RCHR"
+          dataReceiptTimeMinute:
+            query: "NC000020/RCMI"
+          dataReceiptTimeSignificance:
+            query: "NC000020/RCTS"
+          dataProviderRestricted:
+            query: "NC000020/RSRD"
+          windDirection:
+            query: "NC000020/WDIR"
+          windSpeed:
+            query: "NC000020/WSPD"
+
+
+    ioda:
+      backend: netcdf
+      obsdataout: "testrun/gdas.t12z.adpsfc_bufr_master.tm00.nc"
+
+      variables:
+        - name: "MetaData/dateTime"
+          source: variables/timestamp
+          longName: "Datetime"
+          units: "seconds since 1970-01-01T00:00:00Z"
+
+        - name: "MetaData/latitude"
+          coordinates: "longitude latitude"
+          source: variables/latitude
+          longName: "Latitude"
+          units: "degree_north"
+          range: [-90, 90]
+
+        - name: "MetaData/longitude"
+          coordinates: "longitude latitude"
+          source: variables/longitude
+          longName: "Longitude"
+          units: "degree_east"
+          range: [-180, 180]
+
+        - name: "MetaData/dataRestrictedExpiration"
+          coordinates: "longitude latitude"
+          source: variables/dataRestrictedExpiration
+          longName: "Restricted Data Expiration"
+          units: "Hour"
+
+        - name: "MetaData/stationElevation"
+          coordinates: "longitude latitude"
+          source: variables/stationElevation
+          longName: "Station Elevation"
+          units: "m"
+
+        - name: "MetaData/dataReceiptTimeHour"
+          coordinates: "longitude latitude"
+          source: variables/dataReceiptTimeHour
+          longName: "Receipt Time (Hour)"
+          units: "Hour"
+
+        - name: "MetaData/dataReceiptTimeMinute"
+          coordinates: "longitude latitude"
+          source: variables/dataReceiptTimeMinute
+          longName: "Data Receipt Time (Minute)"
+          units: "Minute"
+
+        - name: "MetaData/dataReceiptTimeSignificance"
+          coordinates: "longitude latitude"
+          source: variables/dataReceiptTimeSignificance
+          longName: "Data Receipt Time Significance"
+
+
+        - name: "MetaData/dataProviderRestricted"
+          coordinates: "longitude latitude"
+          source: variables/dataProviderRestricted
+          longName: "Data Provider Restricted"
+
+
+        - name: "ObsValue/windDirection"
+          coordinates: "longitude latitude"
+          source: variables/windDirection
+          longName: "Wind Direction"
+          units: "degree"
+
+        - name: "ObsValue/windSpeed"
+          coordinates: "longitude latitude"
+          source: variables/windSpeed
+          longName: "Wind Speed"
+          units: "m s-1"
+

@@ -1,0 +1,308 @@
+# (C) Copyright 2020 NOAA/NWS/NCEP/EMC
+# #
+# # This software is licensed under the terms of the Apache Licence Version 2.0
+# # which can be obtained at http://www.apache.org/licenses/LICENSE-2.0.
+#
+observations:
+  - obs space:
+      name: bufr
+
+      obsdatain: "./testinput/gdas.t12z.adpsfc.nc000101.tm00.bufr_d"
+
+      exports:
+        variables:
+          timestamp:
+            datetime:
+              year: "NC000101/YEAR"
+              month: "NC000101/MNTH"
+              day: "NC000101/DAYS"
+              hour: "NC000101/HOUR"
+              minute: "NC000101/MINU"
+          PressureChange24Hour:
+            query: "NC000101/24PC"
+          PressureChange3Hour:
+            query: "NC000101/3HPC"
+          characteristicOfPressureTendency:
+            query: "NC000101/CHPT"
+          latitude:
+            query: "NC000101/CLATH"
+          longitude:
+            query: "NC000101/CLONH"
+          cloudType:
+            query: "NC000101/CLTP[1]"
+          cloudType2:
+            query: "NC000101/CLTP[2]"
+          cloudType3:
+            query: "NC000101/CLTP[3]"
+          cloudTypeBelowStation:
+            query: "NC000101/BSYBCLD/CLTP"
+          cloudTypeSupplemental:
+            query: "NC000101/BSYSCLD/CLTP"
+          stationElevation:
+            query: "NC000101/HSMSL"
+          pressureReducedToMeanSeaLevel:
+            query: "NC000101/PMSL"
+          pressure:
+            query: "NC000101/PRES"
+          presentWeather:
+            query: "NC000101/PWEATHER/PRWE"
+          airTemperatureQM:
+            query: "NC000101/QMAT"
+          dewpointTemperatureQM:
+            query: "NC000101/QMDD"
+          pressureQM:
+            query: "NC000101/QMPR"
+          dataReceiptTimeHour:
+            query: "NC000101/RCHR"
+          dataReceiptTimeMinute:
+            query: "NC000101/RCMI"
+          dataReceiptTimeSignificance:
+            query: "NC000101/RCTS"
+          stationIdentification:
+            query: "NC000101/RPID"
+          airTemperature:
+            query: "NC000101/TMDB"
+          dewpointTemperature:
+            query: "NC000101/TMDP"
+          cloudCoverTotal:
+            query: "NC000101/TOCC"
+            transforms:
+              - scale: 0.01
+          totalSnowDepth:
+            query: "NC000101/STGDSNDM/TOSD"
+          windDirection:
+            query: "NC000101/WDIR"
+          windSpeed:
+            query: "NC000101/WSPD"
+          minimumTemperatureAtHeightAndOverPeriodSpecified:
+            query: "NC000101/BSYEXTM/MITM[1]"
+          minimumTemperatureAtHeightAndOverPeriodSpecified2:
+            query: "NC000101/BSYEXTM/MITM[2]"
+          verticalSignificanceSurfaceObservations:
+            query: "NC000101/VSSO[1]"
+          verticalSignificanceSurfaceObservations2:
+            query: "NC000101/VSSO[2]"
+          verticalSignificanceSurfaceObservationsSupplemental:
+            query: "NC000101/BSYSCLD/VSSO"
+          verticalSignificanceSurfaceObservationsBelowStation:
+            query: "NC000101/BSYBCLD/VSSO"
+          verticalSignificanceSurfaceObservationsCloudDrift:
+            query: "NC000101/DIRCLDFT/BSYDCLD/VSSO"
+
+
+    ioda:
+      backend: netcdf
+      obsdataout: "testrun/gdas.t12z.adpsfc_bufr_nc000101.tm00.nc"
+
+      variables:
+        - name: "MetaData/dateTime"
+          source: variables/timestamp
+          longName: "Datetime"
+          units: "seconds since 1970-01-01T00:00:00Z"
+
+        - name: "ObsValue/PressureChange24Hour"
+          coordinates: "longitude latitude"
+          source: variables/PressureChange24Hour
+          longName: "24 Hour Pressure Change"
+          units: "Pa"
+
+        - name: "ObsValue/PressureChange3Hour"
+          coordinates: "longitude latitude"
+          source: variables/PressureChange3Hour
+          longName: "3 Hour Pressure Change"
+          units: "Pa"
+
+        - name: "ObsValue/characteristicOfPressureTendency"
+          coordinates: "longitude latitude"
+          source: variables/characteristicOfPressureTendency
+          longName: "Characteristic Of Pressure Tendency"
+
+
+        - name: "MetaData/latitude"
+          coordinates: "longitude latitude"
+          source: variables/latitude
+          longName: "Latitude"
+          units: "degree_north"
+          range: [-90, 90]
+
+        - name: "MetaData/longitude"
+          coordinates: "longitude latitude"
+          source: variables/longitude
+          longName: "Longitude"
+          units: "degree_east"
+          range: [-180, 180]
+
+        - name: "MetaData/stationElevation"
+          coordinates: "longitude latitude"
+          source: variables/stationElevation
+          longName: "Station Elevation"
+          units: "m"
+
+        - name: "ObsValue/pressureReducedToMeanSeaLevel"
+          coordinates: "longitude latitude"
+          source: variables/pressureReducedToMeanSeaLevel
+          longName: "Mean Sea-Level Pressure"
+          units: "Pa"
+
+        - name: "ObsValue/pressure"
+          coordinates: "longitude latitude"
+          source: variables/pressure
+          longName: "Pressure"
+          units: "Pa"
+
+        - name: "MetaData/presentWeather"
+          coordinates: "longitude latitude"
+          source: variables/presentWeather
+          longName: "Present weather"
+
+
+        - name: "QualityMarker/airTemperature"
+          coordinates: "longitude latitude"
+          source: variables/airTemperatureQM
+          longName: "Quality Indicator for Atmospheric Temperature"
+
+
+        - name: "QualityMarker/dewpointTemperature"
+          coordinates: "longitude latitude"
+          source: variables/dewpointTemperatureQM
+          longName: "Quality Indicator for Dewpoint Temperature"
+
+
+        - name: "QualityMarker/pressure"
+          coordinates: "longitude latitude"
+          source: variables/pressureQM
+          longName: "Quality Indicator for Pressure"
+
+
+        - name: "MetaData/dataReceiptTimeHour"
+          coordinates: "longitude latitude"
+          source: variables/dataReceiptTimeHour
+          longName: "Receipt Time (Hour)"
+          units: "Hour"
+
+        - name: "MetaData/dataReceiptTimeMinute"
+          coordinates: "longitude latitude"
+          source: variables/dataReceiptTimeMinute
+          longName: "Data Receipt Time (Minute)"
+          units: "Minute"
+
+        - name: "MetaData/dataReceiptTimeSignificance"
+          coordinates: "longitude latitude"
+          source: variables/dataReceiptTimeSignificance
+          longName: "Data Receipt Time Significance"
+
+
+        - name: "MetaData/stationIdentification"
+          coordinates: "longitude latitude"
+          source: variables/stationIdentification
+          longName: "Station Identification"
+
+
+          coordinates: "longitude latitude"
+          source: variables/airTemperature
+          longName: "Air Temperature"
+          units: "K"
+ 
+        - name: "ObsValue/dewpointTemperature"
+          coordinates: "longitude latitude"
+          source: variables/dewpointTemperature
+          longName: "Dew Point"
+          units: "K"
+
+        - name: "ObsValue/cloudCoverTotal"
+          coordinates: "longitude latitude"
+          source: variables/cloudCoverTotal
+          longName: "Cloud Cover"
+          units: "1"
+          range: [0, 1]
+
+        - name: "ObsValue/totalSnowDepth"
+          coordinates: "longitude latitude"
+          source: variables/totalSnowDepth
+          longName: "Total Snow Depth"
+          units: "m"
+
+        - name: "ObsValue/windDirection"
+          coordinates: "longitude latitude"
+          source: variables/windDirection
+          longName: "Wind Direction"
+          units: "degree"
+
+        - name: "ObsValue/windSpeed"
+          coordinates: "longitude latitude"
+          source: variables/windSpeed
+          longName: "Wind Speed"
+          units: "m s-1"
+
+        - name: "ObsValue/cloudType"
+          coordinates: "longitude latitude"
+          source: variables/cloudType
+          longName: "Cloud Type"
+
+
+        - name: "ObsValue/cloudType2"
+          coordinates: "longitude latitude"
+          source: variables/cloudType2
+          longName: "Cloud Type 2"
+
+
+        - name: "ObsValue/cloudType3"
+          coordinates: "longitude latitude"
+          source: variables/cloudType3
+          longName: "Cloud Type 3"
+
+
+        - name: "ObsValue/cloudTypeBelowStation"
+          coordinates: "longitude latitude"
+          source: variables/cloudTypeBelowStation
+          longName: "Cloud Type for Clouds Below Station"
+
+
+        - name: "ObsValue/cloudTypeSupplemental"
+          coordinates: "longitude latitude"
+          source: variables/cloudTypeSupplemental
+          longName: "Supplemental Cloud Type"
+
+
+        - name: "ObsValue/minimumTemperatureAtHeightAndOverPeriodSpecified"
+          coordinates: "longitude latitude"
+          source: variables/minimumTemperatureAtHeightAndOverPeriodSpecified
+          longName: "Minimum Temperature At Height and Over Period Specified"
+          units: "K"
+
+        - name: "ObsValue/minimumTemperatureAtHeightAndOverPeriodSpecified2"
+          coordinates: "longitude latitude"
+          source: variables/minimumTemperatureAtHeightAndOverPeriodSpecified2
+          longName: "Minimum Temperature At Height and Over Period Specified 2"
+          units: "K"
+
+        - name: "ObsValue/verticalSignificanceSurfaceObservations"
+          coordinates: "longitude latitude"
+          source: variables/verticalSignificanceSurfaceObservations
+          longName: "Vertical Significance of Observations"
+
+
+        - name: "ObsValue/verticalSignificanceSurfaceObservations2"
+          coordinates: "longitude latitude"
+          source: variables/verticalSignificanceSurfaceObservations2
+          longName: "Vertical Significance of Observations 2"
+
+
+        - name: "ObsValue/verticalSignificanceSurfaceObservationsBelowStation"
+          coordinates: "longitude latitude"
+          source: variables/verticalSignificanceSurfaceObservationsBelowStation
+          longName: "Vertical Significance of Observations for Clouds Below Station"
+
+
+        - name: "ObsValue/verticalSignificanceSurfaceObservationsSupplemental"
+          coordinates: "longitude latitude"
+          source: variables/verticalSignificanceSurfaceObservationsSupplemental
+          longName: "Supplemental Vertical Significance of Observations"
+
+
+        - name: "ObsValue/verticalSignificanceSurfaceObservationsCloudDrift"
+          coordinates: "longitude latitude"
+          source: variables/verticalSignificanceSurfaceObservationsCloudDrift
+          longName: "Cloud Drift Vertical Significance of Observations"
+
+

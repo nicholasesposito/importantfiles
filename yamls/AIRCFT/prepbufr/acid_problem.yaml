@@ -1,0 +1,78 @@
+# (C) Copyright 2020 NOAA/NWS/NCEP/EMC
+# #
+# # This software is licensed under the terms of the Apache Licence Version 2.0
+# # which can be obtained at http://www.apache.org/licenses/LICENSE-2.0.
+
+observations:
+  - obs space:
+      name: bufr
+
+      obsdatain: "./testinput/gdas.t12z.prepbufr.acft_profiles"
+
+      exports:
+        group_by: prepbufrDataLevelCategory
+        variables:
+
+          #MetaData
+          longitude:
+            query: "*/PRSLEVLA/DRFTINFO/XDR"
+          latitude:
+            query: "*/PRSLEVLA/DRFTINFO/YDR"
+          aircraftIdentifier:
+            query: "*/SID"
+          aircraftFlightNumber:
+            query: "[*/ACID, */ACID_SEQ/ACID]"
+          prepbufrDataLevelCategory:
+            query: "*/PRSLEVLA/CAT"
+
+    ioda:
+      backend: netcdf
+      obsdataout: "testrun/acidproblem.nc"
+
+      dimensions:
+        - name: CloudSequence
+          path: "*/PRSLEVLA/CLOUDSEQ"
+        - name: PresentWeatherSequence
+          path: "*/PRSLEVLA/PREWXSEQ"
+        - name: PressureEvent
+          path: "*/PRSLEVLA/P___INFO/P__EVENT"
+        - name: TemperatureEvent
+          path: "*/PRSLEVLA/T___INFO/T__EVENT"
+        - name: HumidityEvent
+          path: "*/PRSLEVLA/Q___INFO/Q__EVENT"
+        - name: HeightEvent
+          path: "*/PRSLEVLA/Z___INFO/Z__EVENT"
+        - name: WindEvent
+          path: "*/PRSLEVLA/W___INFO/W__EVENT"
+
+
+      variables:
+        - name: "MetaData/latitude"
+          coordinates: "longitude latitude"
+          source: variables/latitude
+          longName: "Latitude"
+          units: "degree_north"
+          range: [-90, 90]
+
+        - name: "MetaData/longitude"
+          coordinates: "longitude latitude"
+          source: variables/longitude
+          longName: "Longitude"
+          units: "degree_east"
+          range: [0, 360]
+
+        - name: "MetaData/aircraftIdentifier"
+          coordinates: "longitude latitude"
+          source: variables/aircraftIdentifier
+          longName: "Station ID"
+
+        - name: "MetaData/aircraftFlightNumber"
+          coordinates: "longitude latitude"
+          source: variables/aircraftFlightNumber
+          longName: "Aircraft Flight Number"
+
+        - name: "MetaData/prepbufrDataLevelCategory"
+          coordinates: "longitude latitude"
+          source: variables/prepbufrDataLevelCategory
+          longName: "Prepbufr Data Level Category"
+

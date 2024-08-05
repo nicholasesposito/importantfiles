@@ -1,0 +1,450 @@
+# (C) Copyright 2020 NOAA/NWS/NCEP/EMC
+# #
+# # This software is licensed under the terms of the Apache Licence Version 2.0
+# # which can be obtained at http://www.apache.org/licenses/LICENSE-2.0.
+#
+observations:
+  - obs space:
+      name: bufr
+
+      obsdatain: "testinput/origfiles_plus_split/gdas.t12z.aircft.tm00.bufr_d"
+
+      exports:
+        group_by_variable: longitude
+        variables:
+          timestamp:
+            datetime:
+              year: "*/YEAR"
+              month: "*/MNTH"
+              day: "*/DAYS"
+              hour: "*/HOUR"
+              minute: "*/MINU"
+          aircraftFlightNumber:
+            query: "*/ACID"
+          aircraftNavigationalSystem:
+            query: "*/ACNS"
+          aircraftIdentifier:
+            query: "*/ACRN"
+          commercialAircraftType:
+            query: "*/ACTP"
+          airframeIcing:
+            query: "[*/AFIC, */AFICG/AFIC]"
+          bulletinBeingMonitoredCccc:
+            query: "*/BORG"
+          bulletinBeingMonitoredTtaaii:
+            query: "*/BUHD"
+          cloudAmountDescription:
+            query: "*/AFCLD/CLAM"
+          latitude:
+            query: "[*/CLATH, */CLAT]"
+          longitude:
+            query: "[*/CLONH, */CLON]"
+          cloudType:
+            query: "*/AFCLD/CLTP"
+          degreeOfTurbulence:
+            query: "[*/DGOT, */APTRB/DGOT]"
+          detailedPhaseOfFlight:
+            query: "*/DPOF"
+          dataRestrictedExpiration:
+            query: "*/EXPRSRD"
+          flightLevel:
+            query: "*/FLVL"
+          flightLevelST:
+            query: "[*/FLVLST, */ADRBLSEQ/FLVLST]"
+          heightOfBaseOfIcing:
+            query: "*/AFICG/HBOI"
+          heightOfBaseOfTurbulence:
+            query: "[*/HBOT, */APTRB/HBOT]"
+          height:
+            query: "*/HEIT"
+          heightOrAltitude:
+            query: "*/HMSL"
+          heightOfBaseOfCloud:
+            query: "*/AFCLD/HOCB"
+          heightOfTopOfCloud:
+            query: "*/AFCLD/HOCT"
+          heightOfTopOfTurbulence:
+            query: "[*/APTRB/HTOT, */HTOT]"
+          instantaneousAltitudeRate:
+            query: "*/IALR"
+          aircraftIndicatedAltitude:
+            query: "*/IALT"
+
+          waterVaporMixingRatio:
+            query: "[*/ACMST2/MIXR, */MIXR, */ADRBLSEQ/MIXR]"
+          moistureQuality:
+            query: "*/MSTQ"
+          observerIdentification:
+            query: "*/OBSVR"
+          temperatureObservationPrecision:
+            query: "*/PCAT"
+          percentConfidence:
+            query: "*/PCCF"
+            transforms:
+              - scale: .01
+
+          aircraftFlightPhase:
+            query: "*/POAF"
+          pressure:
+            query: "*/PRLC"
+
+          presentWeather:
+            query: "*/APPWX/PRWE"
+          pressureAltitudeRelativeToMeanSeaLevel:
+            query: "*/PSAL"
+
+          airTemperatureQM:
+            query: "*/QMAT"
+          moistureQM:
+            query: "[*/QMDD, */AFMST/QMDD, */ACMST2/QMDD]"
+          airTemperatureQualityInformation:
+            query: "NC004010/QMRKH[2]"
+          windDirectionQualityInformation:
+            query: "NC004010/QMRKH[3]"
+          windSpeedQualityInformation:
+            query: "NC004010/QMRKH[4]"
+          windQM:
+            query: "*/QMWN"
+
+          dataReceiptTimeHour:
+            query: "*/RCHR"
+          dataReceiptTimeMinute:
+            query: "*/RCMI"
+          dataReceiptTimeSignificance:
+            query: "*/RCTS"
+          relativeHumidity:
+            query: "[*/AFMST/REHU, */ACMST2/REHU, */RAWHU]"
+            transforms:
+              - scale: .01
+
+          reportIdentifier:
+            query: "*/RPID"
+          rawReportString:
+            query: "*/RAWRPT/RRSTG"
+          dataProviderRestricted:
+            query: "*/RSRD"
+
+          airTemperature:
+            query: "[*/TMDB, */ADRBLSEQ/TMDB, */TMDBST]"
+
+          windDirection:
+            query: "[*/WDIR, */ADRBLSEQ/WDIR]"
+          windSpeed:
+            query: "[*/WSPD, */ADRBLSEQ/WSPD]"
+
+    ioda:
+      backend: netcdf
+      obsdataout: "testrun/aircft_master_quenh.nc"
+
+      variables:
+        - name: "MetaData/dateTime"
+          source: variables/timestamp
+          longName: "Datetime"
+          units: "seconds since 1970-01-01T00:00:00Z"
+
+        - name: "MetaData/aircraftFlightNumber"
+          coordinates: "longitude latitude"
+          source: variables/aircraftFlightNumber
+          longName: "Aircraft Flight Number"
+
+
+        - name: "MetaData/aircraftNavigationalSystem"
+          coordinates: "longitude latitude"
+          source: variables/aircraftNavigationalSystem
+          longName: "Aircraft Navigational System"
+
+
+        - name: "MetaData/aircraftIdentifier"
+          coordinates: "longitude latitude"
+          source: variables/aircraftIdentifier
+          longName: "Aircraft Identifier"
+
+
+        - name: "MetaData/commercialAircraftType"
+          coordinates: "longitude latitude"
+          source: variables/commercialAircraftType
+          longName: "Commercial Aircraft Type"
+
+
+        - name: "ObsValue/airframeIcing"
+          coordinates: "longitude latitude"
+          source: variables/airframeIcing
+          longName: "Airframe Icing"
+
+
+        - name: "MetaData/bulletinBeingMonitoredCccc"
+          coordinates: "longitude latitude"
+          source: variables/bulletinBeingMonitoredCccc
+          longName: "Bulletin Being Monitored Cccc"
+
+
+        - name: "MetaData/bulletinBeingMonitoredTtaaii"
+          coordinates: "longitude latitude"
+          source: variables/bulletinBeingMonitoredTtaaii
+          longName: "Bulletin Being Monitored TTaaii"
+
+
+        - name: "ObsValue/cloudAmountDescription"
+          coordinates: "longitude latitude"
+          source: variables/cloudAmountDescription
+          longName: "Cloud Amount Description"
+
+
+        - name: "MetaData/latitude"
+          coordinates: "longitude latitude"
+          source: variables/latitude
+          longName: "Latitude"
+          units: "degree_north"
+          range: [-90, 90]
+
+        - name: "MetaData/longitude"
+          coordinates: "longitude latitude"
+          source: variables/longitude
+          longName: "Longitude"
+          units: "degree_east"
+          range: [-180, 180]
+
+        - name: "ObsValue/cloudType"
+          coordinates: "longitude latitude"
+          source: variables/cloudType
+          longName: "Cloud Type"
+
+
+        - name: "ObsValue/degreeOfTurbulence"
+          coordinates: "longitude latitude"
+          source: variables/degreeOfTurbulence
+          longName: "Degree Of Turbulence"
+
+
+        - name: "MetaData/detailedPhaseOfFlight"
+          coordinates: "longitude latitude"
+          source: variables/detailedPhaseOfFlight
+          longName: "Detailed Phase of Flight"
+
+
+        - name: "MetaData/dataRestrictedExpiration"
+          coordinates: "longitude latitude"
+          source: variables/dataRestrictedExpiration
+          longName: "Restricted Data Expiration"
+          units: "Hour"
+
+        - name: "MetaData/flightLevel"
+          coordinates: "longitude latitude"
+          source: variables/flightLevel
+          longName: "Flight Level"
+          units: "m"
+
+        - name: "MetaData/flightLevelST"
+          coordinates: "longitude latitude"
+          source: variables/flightLevelST
+          longName: "Flight LevelST"
+          units: "m"
+
+        - name: "MetaData/heightOfBaseOfIcing"
+          coordinates: "longitude latitude"
+          source: variables/heightOfBaseOfIcing
+          longName: "Height of Base of Icing"
+          units: "m"
+
+        - name: "MetaData/heightOfBaseOfTurbulence"
+          coordinates: "longitude latitude"
+          source: variables/heightOfBaseOfTurbulence
+          longName: "Height of Base Of Turbulence"
+          units: "m"
+
+        - name: "MetaData/height"
+          coordinates: "longitude latitude"
+          source: variables/height
+          longName: "height"
+          units: "m"
+
+        - name: "MetaData/heightOrAltitude"
+          coordinates: "longitude latitude"
+          source: variables/heightOrAltitude
+          longName: "Height or Altitude"
+          units: "m"
+
+        - name: "MetaData/heightOfBaseOfCloud"
+          coordinates: "longitude latitude"
+          source: variables/heightOfBaseOfCloud
+          longName: "Height of Base of Cloud"
+          units: "m"
+
+        - name: "MetaData/heightOfTopOfCloud"
+          coordinates: "longitude latitude"
+          source: variables/heightOfTopOfCloud
+          longName: "Height of Top of Cloud"
+          units: "m"
+
+        - name: "MetaData/heightOfTopOfTurbulence"
+          coordinates: "longitude latitude"
+          source: variables/heightOfTopOfTurbulence
+          longName: "Height of Top of Turbulence"
+          units: "m"
+
+        - name: "ObsValue/instantaneousAltitudeRate"
+          coordinates: "longitude latitude"
+          source: variables/instantaneousAltitudeRate
+          longName: "Instantaneous Altitude Rate"
+          units: "m s-1"
+
+        - name: "MetaData/aircraftIndicatedAltitude"
+          coordinates: "longitude latitude"
+          source: variables/aircraftIndicatedAltitude
+          longName: "Indicated Aircraft Altitude"
+          units: "m"
+
+        - name: "ObsValue/waterVaporMixingRatio"
+          coordinates: "longitude latitude"
+          source: variables/waterVaporMixingRatio
+          longName: "Water Vapor Mixing Ratio"
+          units: "kg kg-1"
+
+        - name: "QualityMarker/moistureQuality"
+          coordinates: "longitude latitude"
+          source: variables/moistureQuality
+          longName: "Moisture Quality"
+
+
+        - name: "MetaData/observerIdentification"
+          coordinates: "longitude latitude"
+          source: variables/observerIdentification
+          longName: "Observer Identification"
+
+
+        - name: "ObsValue/temperatureObservationPrecision"
+          coordinates: "longitude latitude"
+          source: variables/temperatureObservationPrecision
+          longName: "Temperature Observation Precision"
+          units: "K"
+
+        - name: "MetaData/percentConfidence"
+          coordinates: "longitude latitude"
+          source: variables/percentConfidence
+          longName: "Percent Confidence"
+          units: "1"
+
+        - name: "MetaData/aircraftFlightPhase"
+          coordinates: "longitude latitude"
+          source: variables/aircraftFlightPhase
+          longName: "Aircraft Flight Phase"
+
+
+        - name: "ObsValue/pressure"
+          coordinates: "longitude latitude"
+          source: variables/pressure
+          longName: "Pressure"
+          units: "Pa"
+
+        - name: "MetaData/presentWeather"
+          coordinates: "longitude latitude"
+          source: variables/presentWeather
+          longName: "Present weather"
+
+
+        - name: "MetaData/pressureAltitudeRelativeToMeanSeaLevel"
+          coordinates: "longitude latitude"
+          source: variables/pressureAltitudeRelativeToMeanSeaLevel
+          longName: "Pressure Altitude Relative to Mean Sea Level"
+          units: "m"
+
+        - name: "QualityMarker/airTemperature"
+          coordinates: "longitude latitude"
+          source: variables/airTemperatureQM
+          longName: "Quality Indicator for Atmospheric Temperature"
+
+
+        - name: "QualityMarker/moisture"
+          coordinates: "longitude latitude"
+          source: variables/moistureQM
+          longName: "Quality Indicator for Moisture"
+
+
+        - name: "QualityMarker/airTemperatureQualityInformation"
+          coordinates: "longitude latitude"
+          source: variables/airTemperatureQualityInformation
+          longName: "Air Temperature Quality Information"
+
+
+        - name: "QualityMarker/windDirectionQualityInformation"
+          coordinates: "longitude latitude"
+          source: variables/windDirectionQualityInformation
+          longName: "Wind Direction Quality Information"
+
+
+        - name: "QualityMarker/windSpeedQualityInformation"
+          coordinates: "longitude latitude"
+          source: variables/windSpeedQualityInformation
+          longName: "Wind Speed Quality Information"
+
+        - name: "QualityMarker/windSpeed"
+          coordinates: "longitude latitude"
+          source: variables/windQM
+          longName: "Quality Indicator for Wind Speed"
+
+        - name: "QualityMarker/windDirection"
+          coordinates: "longitude latitude"
+          source: variables/windQM
+          longName: "Quality Indicator for Wind Direction"
+
+
+        - name: "MetaData/dataReceiptTimeHour"
+          coordinates: "longitude latitude"
+          source: variables/dataReceiptTimeHour
+          longName: "Receipt Time (Hour)"
+          units: "Hour"
+
+        - name: "MetaData/dataReceiptTimeMinute"
+          coordinates: "longitude latitude"
+          source: variables/dataReceiptTimeMinute
+          longName: "Data Receipt Time (Minute)"
+          units: "Minute"
+
+        - name: "MetaData/dataReceiptTimeSignificance"
+          coordinates: "longitude latitude"
+          source: variables/dataReceiptTimeSignificance
+          longName: "Data Receipt Time Significance"
+
+
+        - name: "ObsValue/relativeHumidity"
+          coordinates: "longitude latitude"
+          source: variables/relativeHumidity
+          longName: "Relative Humidity"
+          units: "1"
+
+        - name: "MetaData/reportIdentifier"
+          coordinates: "longitude latitude"
+          source: variables/reportIdentifier
+          longName: "Report Identifier"
+
+
+        - name: "MetaData/rawReportString"
+          coordinates: "longitude latitude"
+          source: variables/rawReportString
+          longName: "Raw Report String"
+
+
+        - name: "MetaData/dataProviderRestricted"
+          coordinates: "longitude latitude"
+          source: variables/dataProviderRestricted
+          longName: "Data Provider Restricted"
+
+
+        - name: "ObsValue/airTemperature"
+          coordinates: "longitude latitude"
+          source: variables/airTemperature
+          longName: "Air Temperature"
+          units: "K"
+
+        - name: "ObsValue/windDirection"
+          coordinates: "longitude latitude"
+          source: variables/windDirection
+          longName: "Wind Direction"
+          units: "degree"
+
+        - name: "ObsValue/windSpeed"
+          coordinates: "longitude latitude"
+          source: variables/windSpeed
+          longName: "Wind Speed"
+          units: "m s-1"
+

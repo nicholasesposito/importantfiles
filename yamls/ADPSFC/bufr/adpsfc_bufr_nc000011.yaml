@@ -1,0 +1,127 @@
+# (C) Copyright 2020 NOAA/NWS/NCEP/EMC
+# #
+# # This software is licensed under the terms of the Apache Licence Version 2.0
+# # which can be obtained at http://www.apache.org/licenses/LICENSE-2.0.
+#
+observations:
+  - obs space:
+      name: bufr
+
+      obsdatain: "./testinput/gdas.t12z.adpsfc.nc000011.tm00.bufr_d"
+      exports:
+        variables:
+          timestamp:
+            datetime:
+              year: "NC000011/YEAR"
+              month: "NC000011/MNTH"
+              day: "NC000011/DAYS"
+              hour: "NC000011/HOUR"
+              minute: "NC000011/MINU"
+          durationOfTimeRelatingToMinimumTemperature:
+            query: "NC000011/SHEFTPN/.DTHMITM"
+          durationOfTimeRelatingToMaximumTemperature:
+            query: "NC000011/SHEFTPX/.DTHMXTM"
+          freshSnowDepth:
+            query: "NC000011/SHEFSFL/DOFS"
+          minimumTemperatureAtHeightAndOverPeriodSpecified:
+            query: "NC000011/SHEFTPN/MITM"
+          maximumTemperatureAtHeightAndOverPeriodSpecified:
+            query: "NC000011/SHEFTPX/MXTM"
+          totalPrecipitation:
+            query: "NC000011/SHEFSWE/TOPC"
+          totalSnowDepth:
+            query: "NC000011/SHEFSDP/TOSD"
+          totalPrecipitation1Hour:
+            query: "NC000011/SHEFP01/TP01"
+          totalPrecipitation3Hours:
+            query: "NC000011/SHEFP03/TP03"
+          totalPrecipitation6Hours:
+            query: "NC000011/SHEFP06/TP06"
+          totalPrecipitation12Hours:
+            query: "NC000011/SHEFP12/TP12"
+          totalPrecipitation24Hours:
+            query: "NC000011/SHEFP24/TP24"
+
+
+    ioda:
+      backend: netcdf
+      obsdataout: "testrun/gdas.t12z.adpsfc_bufr_nc000011.tm00.nc"
+
+      variables:
+        - name: "MetaData/dateTime"
+          source: variables/timestamp
+          longName: "Datetime"
+          units: "seconds since 1970-01-01T00:00:00Z"
+
+        - name: "ObsValue/durationOfTimeRelatingToMinimumTemperature"
+          coordinates: "longitude latitude"
+          source: variables/durationOfTimeRelatingToMinimumTemperature
+          longName: "Duration Of Time Relating To Minimum Temperature"
+          units: "Hour"
+
+        - name: "ObsValue/durationOfTimeRelatingToMaximumTemperature"
+          coordinates: "longitude latitude"
+          source: variables/durationOfTimeRelatingToMaximumTemperature
+          longName: "Duration Of Time Relating To Maximum Temperature"
+          units: "Hour"
+
+        - name: "ObsValue/freshSnowDepth"
+          coordinates: "longitude latitude"
+          source: variables/freshSnowDepth
+          longName: "Fresh Snow Depth"
+          units: "m"
+
+        - name: "ObsValue/minimumTemperatureAtHeightAndOverPeriodSpecified"
+          coordinates: "longitude latitude"
+          source: variables/minimumTemperatureAtHeightAndOverPeriodSpecified
+          longName: "Minimum Temperature At Height and Over Period Specified"
+          units: "K"
+
+        - name: "ObsValue/maximumTemperatureAtHeightAndOverPeriodSpecified"
+          coordinates: "longitude latitude"
+          source: variables/maximumTemperatureAtHeightAndOverPeriodSpecified
+          longName: "Maximum Temperature At Height and Over Period Specified"
+          units: "K"
+
+        - name: "ObsValue/totalPrecipitation"
+          coordinates: "longitude latitude"
+          source: variables/totalPrecipitation
+          longName: "total Precipitaton"
+          units: "Kg m-2"
+
+        - name: "ObsValue/totalSnowDepth"
+          coordinates: "longitude latitude"
+          source: variables/totalSnowDepth
+          longName: "Total Snow Depth"
+          units: "m"
+
+        - name: "ObsValue/totalPrecipitation1Hour"
+          coordinates: "longitude latitude"
+          source: variables/totalPrecipitation1Hour
+          longName: "total Precipitation 1 Hour"
+          units: "Kg m-2"
+
+        - name: "ObsValue/totalPrecipitation3Hours"
+          coordinates: "longitude latitude"
+          source: variables/totalPrecipitation3Hours
+          longName: "total Precipitation 3 Hours"
+          units: "Kg m-2"
+
+        - name: "ObsValue/totalPrecipitation6Hours"
+          coordinates: "longitude latitude"
+          source: variables/totalPrecipitation6Hours
+          longName: "total Precipitation 6 Hour"
+          units: "Kg m-2"
+
+        - name: "ObsValue/totalPrecipitation12Hours"
+          coordinates: "longitude latitude"
+          source: variables/totalPrecipitation12Hours
+          longName: "total Precipitation 12 Hours"
+          units: "Kg m-2"
+
+        - name: "ObsValue/totalPrecipitation24Hours"
+          coordinates: "longitude latitude"
+          source: variables/totalPrecipitation24Hours
+          longName: "total Precipitation 24 Hours"
+          units: "Kg m-2"
+
